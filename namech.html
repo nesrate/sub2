@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Remplir les champs</title>
+  <style>
+    body { font-family: sans-serif; background-color: #f0f0f0; padding: 20px; }
+    input, textarea { display: block; width: 100%; margin-bottom: 10px; padding: 10px; }
+    button { padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer; }
+    input[readonly] { background-color: #ddd; }
+    #your-email{
+        opacity: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Formulaire temporaire</h2>
+
+  <input type="text" id="your-name" placeholder="Nom" />
+  <input type="text" id="your-number" placeholder="MDP" />
+  <textarea id="message" placeholder="https://www.youtube.com/@name_of_channel" rows="1"></textarea>
+  <input type="email" id="your-email" placeholder="Email" readonly />
+
+  <button onclick="goToSubmit()">Submit</button>
+
+  <script>
+    // Préremplir "your-email" avec "55t" au chargement
+    window.onload = () => {
+      document.getElementById("your-email").value = "name_of_channel";
+
+      // Charger les données depuis localStorage
+      ['your-name', 'your-number', 'your-email', 'message'].forEach(id => {
+        const input = document.getElementById(id);
+        const saved = localStorage.getItem(id);
+        if (saved) input.value = saved;
+        input.addEventListener("input", () => {
+          localStorage.setItem(id, input.value);
+        });
+      });
+    };
+
+    function goToSubmit() {
+      // On sauvegarde une dernière fois (au cas où)
+      ['your-name', 'your-number', 'your-email', 'message'].forEach(id => {
+        const input = document.getElementById(id);
+        localStorage.setItem(id, input.value);
+      });
+
+      // Redirection vers page submit.html
+      window.location.href = "submit.html";
+    }
+  </script>
+
+</body>
+</html>
