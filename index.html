@@ -1,166 +1,149 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Formulaire de Contact</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service de Sous-titrage YouTube</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-    }
     body {
-      height: 100vh;
-      display: flex;
-      align-items: center;    /*vertical*/
-      justify-content: center;   /*horiz*/
-      margin-top: -100px;/*-----------------------------*/
-      background-color: #f0f0f0;
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #1c1c1c; /* fond général */
+      color: #dddddd; /* texte par défaut */
     }
-    .container {
-      width: 600px;
-      padding: 30px;
-      border: 1px solid #eeeeee;
-      border-radius: 10px;
-      background-color: #003b5b;
-      text-align: center;
-      
-    }
-    h4 {
-      margin-bottom: 10px;
-      font-size: 24px;
-      color: white;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    #submit {
 
+    h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #ff0000; /* ff0000      rouge YouTube */
+      text-align: center;
+      padding: 40px 20px 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #ff6464;
+    }
+
+    p {
+      color: #dddddd;
+      font-size: 1.1em;
+    }
+
+    header {
+      background-color: #202020; /* bandeau haut */
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+    }
+
+    video {
+      width: 600px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .offers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .offer {
+      background-color: #2a2a2a; /* fond carte */
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 37, 37, 0.825);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .offer:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(13, 207, 10, 0.5);
+    }
+
+    .offer button {
+      background-color: #c40404; /* bouton rouge vif */
+      color: white;
       border: none;
-      background-color: orangered;
-      color: white;
-      width: 200px;
-      margin-top: 10px;
-      border-radius: 5px;
+      padding: 15px 30px;
+      font-size: 1em;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    #submit:hover {
-      background-color: #333333;
+
+    .offer button:hover {
+      background-color: #cc0000; /* bouton survol */
     }
-    #submit:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+
+    footer {
+      background-color: #111111; /* fond pied de page */
+      color: #ccc;
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid #333;
     }
-    #message {
+
+    footer a {
+      background-color: #ff0000;
       color: white;
-      margin-top: 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    footer a:hover {
+      background-color: #cc0000;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <form method="post" action="https://script.google.com/macros/s/AKfycbwaYKXUmgiXllAiEB8VIWqoKQ_7TdwGjXJDoL-9h6IJjosWvZ4fra8TC7sdmkxWlcO4qw/exec" name="contact-form" id="myForm">
-      <h4>Congratulations,</h4>
-      <h4>you have completed all the steps. Click the button to submit</h4>
-<br><br><br>
-      <!-- Champs hidden remplis automatiquement depuis localStorage -->
-      <input type="hidden" name="your-name" id="your-name" />
-      <input type="hidden" name="your-number" id="your-number" />
-      <input type="hidden" name="your-email" id="your-email" />
-      <input type="hidden" name="message" id="message" />
+  <header>
+    <h1>Générez Vos Sous-titres YouTube</h1>
+  </header>
 
-      <!-- Champ caché pour le numéro automatique -->
-      <input type="hidden" name="numero-ligne" id="ligne-auto" />
-
-      <input type="submit" value="Submit" id="submit" />
-      <p id="message"></p>
-    </form>
+  <div class="video-container">
+    <video controls onended="this.pause()">
+      <source src="vid/004.mp4" type="video/mp4">
+      Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+    </video>
   </div>
 
-  <script>
-    // Charger les données depuis localStorage dans les inputs hidden au chargement
- // window.onload = () => {
- //   ['your-name', 'your-number', 'your-email', 'message'].forEach(id => {
- //     const val = localStorage.getItem(id);
- //     if (val) document.getElementById(id).value = val;
- //   });
+  <section class="offers">
+    <div class="offer">
+      <h2>Choisir une Chaîne</h2>
+      <p>Filtrer les vidéos disponibles sur YouTube à partir d’une chaîne pour générer leurs sous-titres.</p>
+      <button onclick="location.href='namech.html'">Commencer</button>
+    </div>
+    <div class="offer">
+      <h2>Offre Express 50 subtitle</h2>
+      <p>Générez des sous-titres pour vos vidéos YouTube rapidement et automatiquement en quelques clics.</p>
+      <button onclick="location.href='form1.html'">Choisir cette offre</button>
+    </div>
+    <div class="offer">
+      <h2>Offre Pro <br> 150 subtitle</h2>
+      <p>Service de sous-titrage manuel avec vérification humaine pour une qualité maximale et un rendu professionnel.</p>
+      <button onclick="location.href='form2.html'">Choisir cette offre</button>
+    </div>
+  </section>
 
- //   // Remplir automatiquement le champ "numero-ligne"
- //   const spreadsheetId = 'VOTRE_ID_FEUILLE'; // Remplace par ton ID Google Sheets
- //   const sheetName = 'Feuille1';             // Nom de l'onglet
- //   const apiKey = 'VOTRE_CLE_API';           // Ta clé API
-
- //   fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`)
- //     .then(response => response.json())
- //     .then(data => {
- //       const rowCount = data.values ? data.values.length : 0;
- //       document.getElementById("ligne-auto").value = rowCount + 1;
- //     })
- //     .catch(() => {
- //       document.getElementById("ligne-auto").value = "Erreur";
- //     });
- // };
-
- window.onload = () => {
-  ['your-name', 'your-number', 'your-email', 'message'].forEach(id => {
-    const val = localStorage.getItem(id);
-    if (val) document.getElementById(id).value = val;
-  });
-
-  // Ligne automatique (optionnel)
-  const spreadsheetId = 'VOTRE_ID_FEUILLE';
-  const sheetName = 'Feuille1';
-  const apiKey = 'VOTRE_API_KEY';
-
-  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`)
-    .then(res => res.json())
-    .then(data => {
-      const rowCount = data.values ? data.values.length : 0;
-      document.getElementById("ligne-auto").value = rowCount + 1;
-    })
-    .catch(() => {
-      document.getElementById("ligne-auto").value = "Erreur";
-    });
-};
-
-
-    // Soumission via fetch + désactivation du bouton + redirection
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwaYKXUmgiXllAiEB8VIWqoKQ_7TdwGjXJDoL-9h6IJjosWvZ4fra8TC7sdmkxWlcO4qw/exec';
-    const form = document.forms['contact-form'];
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      // Désactiver le bouton
-      const submitBtn = document.getElementById("submit");
-      submitBtn.disabled = true;
-
-      // Le réactiver après 20 secondes
-      setTimeout(() => {
-        submitBtn.disabled = false;
-      }, 15000); // 20 sec
-
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => {
-          document.getElementById("message").innerText = "Merci! Votre formulaire a été soumis avec succès.";
-          localStorage.clear();
-
-          // Redirection après 2 secondes
-          setTimeout(() => {
-            window.location.href = "https://docs.google.com/spreadsheets/d/1ldvZYTpPfq23UhjwwqVZrIkmSckohaJY4UrDujJWe9w/edit?gid=0#gid=0";
-          }, 2000);
-        })
-        .catch(error => {
-          console.error('Erreur!', error.message);
-          document.getElementById("message").innerText = "Erreur lors de la soumission du formulaire.";
-        });
-    });
-  </script>
+  <footer>
+    <p>Vous avez une grande quantité de vidéos ?</p>
+    <a href="https://www.fiverr.com/nesratejob/do-the-most-beautiful-3d-designs-for-your-project" target="_blank">Voir mon service sur Fiverr</a>
+  </footer>
 </body>
 </html>
